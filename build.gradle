@@ -1,0 +1,21 @@
+plugins {
+    id 'application'  // enables 'run' task and application packaging
+    id 'java'
+}
+
+group = 'com.tuiGame'     // your package/group id
+version = '1.0'
+
+sourceCompatibility = '21'  // matches your JDK version
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.googlecode.lanterna:lanterna:3.1.3'  // lantera
+}
+
+application {
+    mainClass = 'GameMain'  // **Important!** fully qualified main class name
+}
