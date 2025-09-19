@@ -11,7 +11,7 @@ import logic.Entity;
 import logic.Level;
 import logic.Player;
 
-public class GraphicsHandler extends Thread{
+public class GraphicsHandler{
     private static GraphicsHandler instance;
     private Screen screen;
     private TextGraphics graphics;
@@ -23,7 +23,6 @@ public class GraphicsHandler extends Thread{
     }
     public static void startGraphics(Screen screen){
         instance = new GraphicsHandler();
-        instance.start();
         instance.screen = screen;
         instance.graphics = screen.newTextGraphics();
     }

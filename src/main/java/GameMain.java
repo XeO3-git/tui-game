@@ -22,7 +22,6 @@ public class GameMain {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> { //shutdown hook to avoid resource leaks
                 System.out.println("exiting");
                 if (screen != null) {
-                    GraphicsHandler.getGraphics().interrupt();
                     Level.getLevel().stop();
                     try {
                         screen.stopScreen();
