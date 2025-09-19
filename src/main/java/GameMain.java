@@ -24,6 +24,7 @@ public class GameMain {
                 if (screen != null) {
                     Level.getLevel().stop();
                     try {
+                        //
                         screen.stopScreen();
                         screen.close();
                     } catch (IOException e) {
