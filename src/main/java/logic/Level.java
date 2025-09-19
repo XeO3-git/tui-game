@@ -1,6 +1,7 @@
 package logic;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -18,21 +19,34 @@ public class Level {
     public ArrayList<Entity> entities;
     private static Level instance;
     private KeyListener keyListener;
+    private Screen screen;
     private LinkedBlockingQueue<KeyStroke> queue;
     private Level(){}//private constructor making this class a singleton
     public static void startLevel(Screen screen){
+        try {
+            screen.startScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         instance = new Level();
+        instance.screen = screen;
         instance.player = Player.getPlayer();
         instance.queue = new LinkedBlockingQueue<KeyStroke>();
         KeyListener keyListener = new KeyListener(screen, getKeyQueue());
         instance.keyListener = keyListener;
         keyListener.start();
     }
-    public static synchronized Level getLevel(){
+    private static Level getLevel(){
         return instance;
+    }
+    public static List<Entity> getEntities(){
+        return getLevel().entities;
     }
     public static LinkedBlockingQueue<KeyStroke> getKeyQueue(){
         return getLevel().queue;
+    }
+    public static Screen getScreen(){
+        return Level.getLevel().screen;
     }
     public static Player getPlayer(){
         return getLevel().player;
@@ -40,23 +54,24 @@ public class Level {
     public static KeyListener GetKeyListener(){
         return getLevel().keyListener;
     }
-    public void stop(){
+    public static void stop(){
         System.out.println("exiting");
-        stopMainLoop();
+        Runtime.getRuntime().exit(0);
+        getLevel().stopMainLoop();
         /* //TODO for later when I create a save method
          * if(Player.canSave){
          * player.save()
          * }
          */
     }
-    public void startMainLoop(){
+    public static void startMainLoop(){
         final int TICKS_PER_SECOND = 20;
         final long NANO_PER_TICK = 1_000_000_000L / TICKS_PER_SECOND;
-        running = true;
+        getLevel().running = true;
         long lastTime = System.nanoTime();
         long accumulated = 0;
 
-        while (running) {
+        while (getLevel().running) {
             long now = System.nanoTime();
             long delta = now - lastTime;
             lastTime = now;

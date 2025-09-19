@@ -16,15 +16,12 @@ public class GameMain {
         try {
         Terminal terminal = new DefaultTerminalFactory().createTerminal();
         Screen screen = new TerminalScreen(terminal);
-        screen.startScreen();
-        GraphicsHandler.startGraphics(screen);
         Level.startLevel(screen);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> { //shutdown hook to avoid resource leaks
                 System.out.println("exiting");
                 if (screen != null) {
-                    Level.getLevel().stop();
+                    Level.stop();
                     try {
-                        //
                         screen.stopScreen();
                         screen.close();
                     } catch (IOException e) {

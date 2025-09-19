@@ -12,34 +12,21 @@ import logic.Level;
 import logic.Player;
 
 public class GraphicsHandler{
-    private static GraphicsHandler instance;
-    private Screen screen;
-    private TextGraphics graphics;
-    private GraphicsHandler(){//level object keeps a map object, an array of entities, and an inventory object.  
-        
-    }
-    public static GraphicsHandler getGraphics (){
-        return instance;
-    }
-    public static void startGraphics(Screen screen){
-        instance = new GraphicsHandler();
-        instance.screen = screen;
-        instance.graphics = screen.newTextGraphics();
-    }
-    public synchronized void updateWorld(TextImage toDraw) {//hud will be rendered, world will be rendered based on level obj
+
+    public static void updateWorld(Screen screen, TextImage toDraw) {//hud will be rendered, world will be rendered based on level obj
         //add entities
         Player player = Player.getPlayer();
         addEntityToWorld(toDraw, player);
-        for (Entity entity : Level.getLevel().entities) {
+        for (Entity entity : Level.getEntities()) {
             addEntityToWorld(toDraw, entity);
         }
 
         //render hud
         Hud.getHud().render.copyTo(toDraw);//TODO center this
-        
+        TextGraphics graphics = screen.newTextGraphics();
         graphics.drawImage(TerminalPosition.TOP_LEFT_CORNER, toDraw);
     }
-    private void addEntityToWorld(TextImage world, Entity entity){
+    private static void addEntityToWorld(TextImage world, Entity entity){
         entity.getRender().copyTo(
             world,                             
             0, 0,  
