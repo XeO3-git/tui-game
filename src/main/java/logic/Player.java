@@ -21,22 +21,19 @@ public class Player extends Entity{
         currentMana = maxMana;
         currentStamina = maxStamina;
     }
-    public static synchronized Player getPlayer(){
+    public static Player getPlayer(){
         if(instance == null){
             instance = new Player();
         }
         return instance;
     }
-        public synchronized int getMaxStamina(){
+        public int getMaxStamina(){
         return maxStamina;
     }
-    public synchronized int getStaminam(){
+    public int getStaminam(){
         return currentStamina;
     }
-        public synchronized int getMaxMana(){
-        return maxMana;
-    }
-    public synchronized int getHp(){
+        public int getMaxMana(){
         return maxMana;
     }
 }
