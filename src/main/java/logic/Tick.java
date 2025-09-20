@@ -2,8 +2,10 @@ package logic;
 import java.io.IOException;
 
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.BasicTextImage;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -14,7 +16,9 @@ public class Tick {
     public static void onTick(){
         //System.out.println("tick");
         handleInput();
-        GraphicsHandler.updateWorld(Level.getScreen(), new BasicTextImage(null));
+        TextImage debug = new BasicTextImage(Level.getScreen().getTerminalSize());
+        debug.setAll(TextCharacter.fromCharacter('*')[0]);
+        GraphicsHandler.updateWorld(Level.getScreen(), debug);
     }
     private static void handleInput(){
        KeyStroke stroke = Level.getKeyQueue().poll();

@@ -1,5 +1,6 @@
 package render;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.googlecode.lanterna.TerminalPosition;
@@ -25,6 +26,12 @@ public class GraphicsHandler{
         Hud.getHud().render.copyTo(toDraw);//TODO center this
         TextGraphics graphics = screen.newTextGraphics();
         graphics.drawImage(TerminalPosition.TOP_LEFT_CORNER, toDraw);
+
+        try {//refresh screen
+            screen.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private static void addEntityToWorld(TextImage world, Entity entity){
         entity.getRender().copyTo(

@@ -16,7 +16,7 @@ import render.GraphicsHandler;
 public class Level {
     public boolean running;
     private Player player;
-    public ArrayList<Entity> entities;
+    public ArrayList<Entity> entities = new ArrayList<>();
     private static Level instance;
     private KeyListener keyListener;
     private Screen screen;
@@ -35,6 +35,7 @@ public class Level {
         KeyListener keyListener = new KeyListener(screen, getKeyQueue());
         instance.keyListener = keyListener;
         keyListener.start();
+        instance.startMainLoop();
     }
     private static Level getLevel(){
         return instance;
@@ -56,15 +57,15 @@ public class Level {
     }
     public static void stop(){
         System.out.println("exiting");
-        Runtime.getRuntime().exit(0);
         getLevel().stopMainLoop();
+        Runtime.getRuntime().exit(0);
         /* //TODO for later when I create a save method
          * if(Player.canSave){
          * player.save()
          * }
          */
     }
-    public static void startMainLoop(){
+    public void startMainLoop(){
         final int TICKS_PER_SECOND = 20;
         final long NANO_PER_TICK = 1_000_000_000L / TICKS_PER_SECOND;
         getLevel().running = true;
@@ -92,3 +93,5 @@ public class Level {
         running = false;
     }
 }
+
+
