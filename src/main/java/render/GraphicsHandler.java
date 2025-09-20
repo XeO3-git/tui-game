@@ -23,10 +23,9 @@ public class GraphicsHandler{
         }
 
         //render hud
-        Hud.getHud().render.copyTo(toDraw);//TODO center this
+        Hud.getHud().render.copyTo(toDraw, 0, 1, 0, Hud.getWidth(), screen.getTerminalSize().getRows()-1, (screen.getTerminalSize().getColumns()/2)-Hud.getWidth()/2);//TODO center this
         TextGraphics graphics = screen.newTextGraphics();
-        TerminalPosition pos = new TerminalPosition(screen.getTerminalSize().getColumns()/2, screen.getTerminalSize().getRows()-1);
-        graphics.drawImage(pos, toDraw);
+        graphics.drawImage(TerminalPosition.TOP_LEFT_CORNER, toDraw);
 
         try {//refresh screen
               TerminalSize nSize = Level.getScreen().doResizeIfNecessary(); 

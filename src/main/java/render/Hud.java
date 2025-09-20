@@ -13,6 +13,7 @@ import logic.Player;
 public class Hud {
     public static Hud instance;
     public TextImage render;
+    private static final int width = 36;
     private Hud(){}
     public static Hud getHud(){//returns an hud object and updates displayed values
         if(instance == null){
@@ -29,6 +30,9 @@ public class Hud {
            //TODO repeat with mana and stamina
         }
         return instance;
+    }
+    public static int getWidth(){
+        return width;
     }
 
 }
