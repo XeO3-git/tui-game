@@ -1,9 +1,9 @@
 package render;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.screen.Screen;
@@ -25,9 +25,12 @@ public class GraphicsHandler{
         //render hud
         Hud.getHud().render.copyTo(toDraw);//TODO center this
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.drawImage(TerminalPosition.TOP_LEFT_CORNER, toDraw);
+        TerminalPosition pos = new TerminalPosition(screen.getTerminalSize().getColumns()/2, screen.getTerminalSize().getRows()-1);
+        graphics.drawImage(pos, toDraw);
 
         try {//refresh screen
+              TerminalSize nSize = Level.getScreen().doResizeIfNecessary(); 
+              if(nSize != null) screen.clear();
             screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();

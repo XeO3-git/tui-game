@@ -31,6 +31,7 @@ public class Level {
         instance = new Level();
         instance.screen = screen;
         instance.player = Player.getPlayer();
+        instance.entities.add(getPlayer());
         instance.queue = new LinkedBlockingQueue<KeyStroke>();
         KeyListener keyListener = new KeyListener(screen, getKeyQueue());
         instance.keyListener = keyListener;
