@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextImage;
 import com.googlecode.lanterna.screen.Screen;
@@ -13,7 +14,7 @@ import logic.Level;
 import logic.Player;
 
 public class GraphicsHandler{
-
+    
     public static void updateWorld(Screen screen, TextImage toDraw) {//hud will be rendered, world will be rendered based on level obj
         //add entities
         Player player = Player.getPlayer();
